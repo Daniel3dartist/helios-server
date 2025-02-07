@@ -10,8 +10,8 @@ RUN microdnf -y update && \
     microdnf -y install gcc-c++ && \
     microdnf -y install autoconf && \
     microdnf -y install memcached && \
-    microdnf -y mariadb-connector-c-devel && \
-    microdnf -y gettext && \
+    microdnf -y install mariadb-connector-c-devel && \
+    microdnf -y install gettext && \
     microdnf -y install glibc-langpack-pt systemd cronie && \
     microdnf -y install git && \
     microdnf -y clean all && \
