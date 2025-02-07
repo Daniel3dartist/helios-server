@@ -8,6 +8,10 @@ import os
 import ldap
 from django_auth_ldap.config import LDAPSearch
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 TESTING = 'test' in sys.argv
 
 # go through environment variables and override them
@@ -43,18 +47,23 @@ SHOW_USER_INFO = (get_from_env('SHOW_USER_INFO', '1') == '1')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'helios',
+        'ENGINE': 'django.db.backends.mysql',
         'CONN_MAX_AGE': 600,
+        'NAME':get_from_env('DB_NAME', ''),
+        'USER': get_from_env("DB_USER", ''),
+        'PASSWORD': get_from_env("DB_PASSWORD", ''),
+        'HOST': get_from_env("DB_HOST", ''),
+        'PORT': get_from_env("DB_PORT", ''),
     },
 }
 
+"""
 # override if we have an env variable
 if get_from_env('DATABASE_URL', None):
     import dj_database_url
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
-
+"""
 # explicitly set the default auto-created primary field to silence warning models.W042
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
